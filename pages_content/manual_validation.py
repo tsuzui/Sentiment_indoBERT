@@ -37,8 +37,10 @@ def render() -> None:
         coverage_rows.append((f"Cakupan {group}", f"{validated}/{eligible} ({pct}%)"))
     metric_row(coverage_rows)
     st.caption(
-        "Tidak semua komentar yang sudah dilabel Gemini ikut divalidasi manual — sebagian "
-        "dikecualikan (mis. label Gemini gagal karena rate limit, atau tidak diambil sampel)."
+        "Tidak semua komentar yang sudah dilabel Gemini ikut divalidasi manual. Untuk Magang "
+        "Berdampak, 164 komentar dikeluarkan karena tidak relevan dengan kata kunci penelitian "
+        "(mis. tercampur dengan istilah lain seperti \"Kampus Berdampak\") sehingga dihapus "
+        "sebelum tahap validasi."
     )
 
     tab_ringkasan, tab_koreksi = st.tabs(["Ringkasan", "Contoh Koreksi"])
