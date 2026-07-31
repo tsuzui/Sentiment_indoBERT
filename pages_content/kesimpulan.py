@@ -49,6 +49,17 @@ def render() -> None:
             "penelitian ini dalam mengungkap pola dan kecenderungan sentimen publik pada kedua program."
         )
 
+        st.subheader("Relevansi Kebijakan di Tengah Dominasi Sentimen Netral")
+        st.write(
+            "Dominasi sentimen netral pada kedua program mencerminkan karakter diskursus publik yang "
+            "bersifat mencari informasi (misalnya menanyakan jadwal, syarat, atau prosedur), bukan "
+            "berarti opini masyarakat tidak dapat dijadikan acuan kebijakan. Justru perbedaan proporsi "
+            "sentimen positif dan negatif antar program dan antar fase — seperti negatif Magang "
+            "Berdampak yang lebih tinggi pada fase awal, serta distribusi yang lebih seimbang pada "
+            "MSIB Matang — tetap dapat menjadi sinyal yang bermakna bagi pemangku kebijakan dalam "
+            "mengevaluasi dan menyempurnakan program pendidikan di masa mendatang."
+        )
+
     with tab_keterbatasan:
         st.markdown(
             """
