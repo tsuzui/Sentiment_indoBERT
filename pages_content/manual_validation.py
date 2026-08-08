@@ -2,7 +2,7 @@ import plotly.express as px
 import streamlit as st
 
 from pipeline_loader import load_gemini_labeling, load_manual_validation
-from ui_helpers import metric_row
+from ui_helpers import filter_quality_comments, metric_row
 
 
 def render() -> None:
@@ -55,8 +55,9 @@ def render() -> None:
     with tab_koreksi:
         koreksi = df[df["sentiment_label"] != df["label_manual"]]
         st.caption(f"{len(koreksi)} komentar dikoreksi labelnya oleh validator manual.")
+        pool = filter_quality_comments(koreksi, text_col="clean_text")
         st.dataframe(
-            koreksi[["clean_text", "sentiment_label", "label_manual"]].rename(columns={
+            pool[["clean_text", "sentiment_label", "label_manual"]].rename(columns={
                 "clean_text": "Teks",
                 "sentiment_label": "Label Gemini",
                 "label_manual": "Label Manual",

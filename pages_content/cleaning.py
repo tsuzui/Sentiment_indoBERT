@@ -3,7 +3,7 @@ import streamlit as st
 
 from constants import DATASET_GROUP_ORDER
 from pipeline_loader import load_cleaning_data, load_raw_scrape
-from ui_helpers import metric_row
+from ui_helpers import filter_quality_comments, metric_row
 
 
 def render() -> None:
@@ -43,5 +43,6 @@ def render() -> None:
         if st.button("Tampilkan Contoh Lain", key="cleaning_reroll"):
             st.session_state["cleaning_seed"] = st.session_state.get("cleaning_seed", 0) + 1
         seed = st.session_state.get("cleaning_seed", 0)
-        sample = clean_df.sample(n=min(10, len(clean_df)), random_state=seed)
+        pool = filter_quality_comments(clean_df, text_col="clean_text")
+        sample = pool.sample(n=min(10, len(pool)), random_state=seed) if len(pool) else pool
         st.dataframe(sample[["dataset_group", "raw_text", "clean_text"]], use_container_width=True)

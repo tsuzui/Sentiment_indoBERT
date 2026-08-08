@@ -1,6 +1,8 @@
 import pandas as pd
 import streamlit as st
 
+from ui_helpers import filter_quality_comments
+
 
 def render(df: pd.DataFrame) -> None:
     st.header("💬 Contoh Komentar")
@@ -22,18 +24,20 @@ def render(df: pd.DataFrame) -> None:
 
     st.caption(f"{len(subset)} komentar cocok dengan filter di atas.")
 
-    jumlah = st.slider("Jumlah contoh ditampilkan", 1, min(50, max(len(subset), 1)), min(10, max(len(subset), 1)))
+    pool = filter_quality_comments(subset, text_col=text_col)
+
+    jumlah = st.slider("Jumlah contoh ditampilkan", 1, min(50, max(len(pool), 1)), min(10, max(len(pool), 1)))
 
     if st.button("Tampilkan Contoh Lain"):
         st.session_state["examples_seed"] = st.session_state.get("examples_seed", 0) + 1
 
     seed = st.session_state.get("examples_seed", 0)
 
-    if len(subset) == 0:
+    if len(pool) == 0:
         st.info("Tidak ada komentar yang cocok dengan filter.")
         return
 
-    sample = subset.sample(n=min(jumlah, len(subset)), random_state=seed)
+    sample = pool.sample(n=min(jumlah, len(pool)), random_state=seed)
 
     for _, row in sample.iterrows():
         with st.container(border=True):
